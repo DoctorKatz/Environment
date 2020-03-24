@@ -1,4 +1,4 @@
-"" Last update: 09.12.2019 16:23
+"" Last update: 19.02.2020 23:32
 "" .vimrc  файл конфирурации для текстового редактора VIM
 "" dimio (http://dimio.org)
 "" Подробности по адресу:
@@ -47,8 +47,8 @@ set noswapfile " не использовать своп-файл (в него с
 set browsedir=current
 set visualbell " вместо писка бипером мигать курсором при ошибках ввода
 set clipboard=unnamed " во избежание лишней путаницы использовать системный буфер обмена вместо буфера Vim
-set backup " включить сохранение резервных копий
-autocmd! bufwritepre * call BackupDir() " сделаем резервную копию перед записью буфера на диск
+"set backup " включить сохранение резервных копий
+"autocmd! bufwritepre * call BackupDir() " сделаем резервную копию перед записью буфера на диск
 set title " показывать имя буфера в заголовке терминала
 set history=128 " хранить больше истории команд
 set undolevels=2048 " хранить историю изменений числом N
@@ -100,13 +100,14 @@ vnoremap <silent># <ESC>:call VisualSearch()<CR>?<C-R>/<CR>
 
 
 "НАСТРОЙКИ СВОРАЧИВАНИЯ БЛОКОВ ТЕКСТА (фолдинг)
-set foldenable " включить фолдинг
+"set foldenable " включить фолдинг
 "set foldmethod=syntax " определять блоки на основе синтаксиса файла
 set foldmethod=indent " определять блоки на основе отступов
 set foldcolumn=3 " показать полосу для управления сворачиванием
 set foldlevel=1 " Первый уровень вложенности открыт, остальные закрыты
 set foldopen=all " автоматическое открытие сверток при заходе в них
 set tags=tags\ $VIMRUNTIME/systags " искать теги в текущй директории и в указанной (теги генерируются ctags)
+set number
 
 
 "НАСТРОЙКИ РАБОТЫ С ФАЙЛАМИ
@@ -402,20 +403,20 @@ function! RemoveTrailingSpaces()
 endfunction
 
 "" Сохранять умные резервные копии ежедневно
-function! BackupDir()
+"function! BackupDir()
    " определим каталог для сохранения резервной копии
-   if has('win32')
-        let l:backupdir = $TEMP.'\backup'
-    else
-        let l:backupdir = $VIMRUNTIME.'/backup/'.
-        \substitute(expand('%:p:h'), '^'.$HOME, '~', '')
-    endif
+ "  if has('win32')
+  "      let l:backupdir = $TEMP.'\backup'
+   " else
+        "let l:backupdir = $VIMRUNTIME.'/backup/'.
+        "\substitute(expand('%:p:h'), '^'.$HOME, '~', '')
+    "endif
    " если каталог не существует, создадим его рекурсивно
-   if !isdirectory(l:backupdir)
-      call mkdir(l:backupdir, 'p', 0700)
-   endif
+   "if !isdirectory(l:backupdir)
+    "  call mkdir(l:backupdir, 'p', 0700)
+  " endif
    " переопределим каталог для резервных копий
-   let &backupdir=l:backupdir
+  " let &backupdir=l:backupdir
    " переопределим расширение файла резервной копии
-   let &backupext=strftime('~%Y-%m-%d~')
-endfunction
+  " let &backupext=strftime('~%Y-%m-%d~')
+"endfunction
